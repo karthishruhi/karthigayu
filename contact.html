@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgb(71, 3, 3);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            animation: slideIn 0.6s ease-in-out;
+        }
+
+        h2 {
+            color:white;
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+            animation: fadeIn 0.8s ease;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            outline: none;
+            transition: border 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Animations for each input */
+        input[name="name"] {
+            animation: slideFromLeft 0.5s ease;
+        }
+
+        input[name="phone"] {
+            animation: slideFromRight 0.5s ease;
+        }
+
+        input[name="email"] {
+            animation: fadeIn 0.5s ease;
+        }
+
+        textarea[name="message"] {
+            animation: zoomIn 0.5s ease;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #e74c3c;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            animation: bounce 0.6s ease infinite alternate;
+        }
+
+        button:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+        }
+        a{
+            text-decoration: none;
+            color: #fff;
+        }
+
+        /* Keyframe Animations */
+        @keyframes slideIn {
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideFromLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideFromRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Get in Touch with Us</h2>
+    <form>
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="text" name="phone" placeholder="Phone" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <textarea name="message" placeholder="Message" rows="5" required></textarea>
+        <button type="submit">Send</button>
+        
+    </form>
+    <button type="submit"><a href="C:\Users\famin\karthika\famproject\cnfirm\index.html">Home</a></button>
+</div>
+
+</body>
+</html

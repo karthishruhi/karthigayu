@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive Navigation Bar</title>
+  <style>
+    /* General Styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Navbar Styling */
+    .navbar {
+      background-color: #4a0d0d;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo {
+      position: absolute;
+      left: 20px;
+    }
+
+    .logo img {
+      width: 50px;
+      height: auto;
+    }
+
+    /* Menu Toggle Button */
+    .menu-toggle {
+      font-size: 30px;
+      color: #ffffff;
+      cursor: pointer;
+      display: none;
+      position: absolute;
+      right: 20px;
+    }
+
+    /* Nav List */
+    .nav-list {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .nav-list li {
+      padding: 10px 0;
+    }
+
+    .nav-list a {
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    /* Hover Effect */
+    .nav-list a:hover {
+      background-color: #a0261d;
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Click Effect */
+    .nav-list a:active {
+      background-color: #ffcc00;
+      color: #4a0d0d;
+      transform: scale(0.95);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Login Button */
+    .login-btn {
+      background-color: #4a0d0d;
+      color: #fff;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #a0261d;
+      transform: scale(1.05);
+    }
+
+    .login-btn:active {
+      background-color: #ffcc00;
+      color: #4a0d0d;
+      transform: scale(0.95);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-list {
+        display: none;
+        flex-direction: column;
+        position: fixed; /* Changed from absolute to fixed */
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #4a0d0d;
+        padding: 10px;
+        border-top: 2px solid #ffcc00;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000; /* Ensuring it's above footer */
+      }
+
+      .nav-list.active {
+        display: flex;
+      }
+
+      .nav-list li {
+        padding: 8px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .nav-list a {
+        font-size: 16px;
+        padding: 10px;
+      }
+
+      .login-btn {
+        width: 80%;
+        margin: 0 auto;
+        font-size: 16px;
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .logo img {
+        width: 40px;
+      }
+
+      .menu-toggle {
+        font-size: 28px;
+      }
+
+      .nav-list a {
+        font-size: 14px;
+        padding: 8px;
+      }
+
+      .login-btn {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo img {
+        width: 35px;
+      }
+
+      .menu-toggle {
+        font-size: 24px;
+      }
+
+      .nav-list a {
+        font-size: 14px;
+        padding: 6px;
+      }
+
+      .login-btn {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+
+/* style for .container */
+    .container {
+            max-width: 90%;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .container h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .container p {
+            color: rgb(71, 3, 3);
+            font-size: 18px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* Individual line animation */
+        .line {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInLine 0.6s ease-in-out forwards;
+        }
+
+        @keyframes fadeInLine {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 70%;
+                padding: 30px;
+            }
+
+            .container h2 {
+                font-size: 28px;
+            }
+
+            .container p {
+                font-size: 20px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 50%;
+            }
+
+            .container h2 {
+                font-size: 32px;
+            }
+
+            .container p {
+                font-size: 22px;
+            }
+        }
+     /* 🌈 Product Container Styling */
+     .product-container {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 5%;
+      margin-top: 20px;
+    }
+
+    /* 🏆 Product Card Styling */
+    .product-card {
+      background-color: rgb(71, 3, 3);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      width: 300px;
+      height: 300px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s ease-in-out forwards;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation-delay: 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+      background-color: grey;
+    }
+
+    /* ❌ Close Button */
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #ffffff;
+      color: rgb(71, 3, 3);
+      border: none;
+      padding: 5px 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: popIn 0.4s ease-in-out forwards 0.3s;
+    }
+
+    .close-btn:hover {
+      background-color: #cccccc;
+    }
+
+    /* 🖼️ Product Image */
+    .product-image {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      margin-bottom: 15px;
+      animation: bounceIn 0.6s ease;
+    }
+
+    /* 🏷️ Product Title */
+    .product-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      animation: slideIn 0.5s ease-in-out forwards;
+      opacity: 0;
+      transform: translateY(10px);
+      animation-delay: 0.2s;
+    }
+
+    /* 💰 Price Styling */
+    .price {
+      font-size: 20px;
+      color: #ffffff;
+      margin-bottom: 5px;
+      animation: slideIn 0.5s ease-in-out forwards;
+      opacity: 0;
+      transform: translateY(10px);
+      animation-delay: 0.3s;
+    }
+
+    .discount-price {
+      color: #cccccc;
+      text-decoration: line-through;
+      font-size: 16px;
+    }
+
+    /* ⭐ Reviews and Stars */
+    .reviews, .stars {
+      font-size: 14px;
+      color: #b0c4de;
+      margin-top: 5px;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: slideIn 0.5s ease-in-out forwards;
+      animation-delay: 0.4s;
+    }
+
+    .stars {
+      color: gold;
+      margin-bottom: 10px;
+    }
+
+    /* 🌟 Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+      /* 🌈 Twitter Content Styling */
+      #TwitterContent {
+      width: 80%;
+      height: auto;
+      border: 2px solid rgb(71, 3, 3);
+      margin: 5% auto;
+      color: rgb(71, 3, 3);
+      padding: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      background: white;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInBounce 1s ease-out forwards;
+      transition: all 0.3s ease-in-out;
+    }
+
+    #TwitterContent:hover {
+      transform: scale(1.05);
+      text-shadow: 0px 0px 10px rgba(71, 3, 3, 0.7);
+      box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3);
+      font-size: 17px;
+      font-variant: small-caps;
+    }
+
+    /* 🌟 Animations */
+    @keyframes fadeInBounce {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      50% {
+        opacity: 0.5;
+        transform: translateY(-10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes glowEffect {
+      0% {
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
+      }
+      100% {
+        border-color: rgba(255, 255, 255, 0.8);
+        box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
+      }
+    }
+    .social-media-container {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    .social-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        object-fit: cover;
+        transition: transform 0.2s ease;
+    }
+
+    .social-icon:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+</style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar">
+  <div class="logo">
+    <img src="logo.png" alt="Logo" />
+  </div>
+  <div class="menu-toggle" id="mobile-menu">
+    ☰
+  </div>
+  <ul class="nav-list">
+    <li><a href="C:\Users\famin\karthika\famproject\cnfirm\index.html" class="nav">Home</a></li>
+    <li><a href="C:\Users\famin\karthika\famproject\cnfirm\insta.html">Instagram</a></li>
+    <li><a href="C:\Users\famin\karthika\famproject\cnfirm\Twitter.html">Twitter</a></li>
+    <li><a href="C:\Users\famin\karthika\famproject\cnfirm\gmb.html">Google My Business</a></li>
+    <li><a href="C:\Users\famin\karthika\famproject\cnfirm\fb.html">Facebook</a></li>
+    <li><a href="#">Pro Hacks</a></li>
+    <li><a href="C:\Users\famin\karthika\famproject\cnfirm\contact.html">Contact</a></li>
+    <li><a href="C:\Users\famin\karthika\famproject\cnfirm\login.html" class="login-btn">Login</a></li>
+  </ul>
+</nav>
+<div class="container">
+  <h2>Elevate Your Twitter Presence Like Never Before!</h2>
+  <p>
+      <span class="line" style="animation-delay: 0.1s;">Struggling to gain traction on Twitter? We’ve got you covered!</span><br><br>
+      <span class="line" style="animation-delay: 0.3s;">Our Twitter growth services are designed to help you expand your reach and establish a strong online presence.</span>
+  </p>
+</div>
+<!-- ✅ Product Cards -->
+<div class="product-container">
+    <!-- First Product -->
+    <div class="product-card">
+        <button class="close-btn">X</button>
+        <img src="https://cdn-icons-png.flaticon.com/512/595/595568.png" alt="Badge" class="product-image" />
+        <div class="product-title">Twitter High Quality Followers</div>
+        <div class="price">From Rs. 10.00</div>
+        <div class="stars">★★★★★</div>
+        <div class="reviews">16 reviews</div>
+    </div>
+
+    <!-- Second Product -->
+    <div class="product-card">
+        <button class="close-btn">X</button>
+        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" alt="Chart" class="product-image" />
+        <div class="product-title">Twitter (X) - Post Likes</div>
+        <div class="price">From Rs. 2,000.00 <span class="discount-price">Rs. 360.00</span></div>
+        <div class="stars">★★★★☆</div>
+        <div class="reviews">1 review</div>
+    </div>
+
+    <!-- Third Product -->
+    <div class="product-card">
+        <button class="close-btn">X</button>
+        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" alt="Chart" class="product-image" />
+        <div class="product-title">Twitter Post Views</div>
+        <div class="price">From Rs. 1000.00 <span class="discount-price">Rs. 360.00</span></div>
+        <div class="stars">★★★★☆</div>
+        <div class="reviews">1 review</div>
+    </div>
+</div>
+<!-- ✅ Twitter Content -->
+<div id="TwitterContent">
+    <p>
+        The prices mentioned above are for 200 followers. For orders above 1,000 followers, you will receive a 10% discount.  
+        If your order exceeds 5,000 followers, you will get a 20% discount.
+    </p>
+</div>
+
+<footer style="
+    background-color: #000;
+    color: #fff;
+    padding: 40px 5%;
+    font-family: Montserrat;
+">
+    <div style="
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        text-align: center;
+    ">
+        <!-- Company Info -->
+        <div style="flex: 1; min-width: 240px;">
+            <img src="logo.png" alt="FamInfoMedia" style="width: 180px; margin-bottom: 15px;">
+            <p style="font-size: 14px; line-height: 1.6;">
+                Head Office<br>2/785 F2, Umapathi Nagar<br>Arumutham Palayam<br>Palladam<br>Tirupur - 641664
+            </p>
+            <div style="margin-top: 15px;">
+                <div class="social-media-container">
+                    <a href="https://www.facebook.com/people/Fam-infomedia/61568453833590/">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" class="social-icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/fam-infomedia-67b198348/">
+                        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" class="social-icon">
+                    </a>
+                    <a href="https://pin.it/eiGtp9mml">
+                        <img src="https://cdn-icons-png.flaticon.com/512/145/145808.png" alt="Pinterest" class="social-icon">
+                    </a>
+                    <a href="https://www.instagram.com/fam_info_media/">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="social-icon">
+                    </a>
+                    <a href="https://g.co/kgs/8GKbwNJ">
+                        <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" alt="Google" class="social-icon">
+                    </a>
+                    <a href="https://x.com/fam_infomedia">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="social-icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Company Links -->
+        <div style="flex: 1; min-width: 160px;">
+            <h4 style="font-size: 16px; margin-bottom: 12px;">COMPANY</h4>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                font-size: 14px;
+                line-height: 2;
+                text-align: center;
+            ">
+                <li><a href="#" style="color: #fff; text-decoration: none;">Home</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">About Us</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">Blogs</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">Reviews</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">Careers</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <!-- Solutions -->
+        <div style="flex: 1; min-width: 160px;">
+            <h4 style="font-size: 16px; margin-bottom: 12px;">SOLUTION</h4>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                font-size: 14px;
+                line-height: 2;
+                text-align: center;
+            ">
+                <li><a href="#" style="color: #fff; text-decoration: none;">Agency</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">Academy</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">Advisory</a></li>
+            </ul>
+        </div>
+
+        <!-- Newsletter -->
+        <div style="flex: 1; min-width: 240px;">
+            <h4 style="font-size: 16px; margin-bottom: 12px;">WANT SOME MARKETING GOODIES FOR FREE?</h4>
+            <form style="display: flex; justify-content: center; gap: 5px;">
+                <input type="email" placeholder="Enter Your Email" style="
+                    flex: 1;
+                    padding: 10px;
+                    border: none;
+                    border-radius: 6px 0 0 6px;
+                    font-size: 14px;
+                ">
+                <button type="submit" style="
+                    background-color: #D21F26;
+                    color: #fff;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 0 6px 6px 0;
+                    cursor: pointer;
+                    font-size: 14px;
+                ">Send Me</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Contact Info -->
+    <div style="
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 25px;
+        font-size: 14px;
+        gap: 15px;
+        text-align: center;
+    ">
+        <div><a href="mailto:info@faminfomedia.com" style="color: white;">📧 info@faminfomedia.com</a></div>
+        <div><a href="tel:+919655519922" style="color: white;">📞 +91 96555 19922</a></div>
+    </div>
+</footer>
+
+<script>
+  // Toggle menu for mobile
+  const mobileMenu = document.getElementById('mobile-menu');
+  const navList = document.querySelector('.nav-list');
+
+  mobileMenu.addEventListener('click', () => {
+    navList.classList.toggle('active');
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (event) => {
+    if (!mobileMenu.contains(event.target) && !navList.contains(event.target)) {
+      navList.classList.remove('active');
+    }
+  });
+</script>
+
+</body>
+</html>

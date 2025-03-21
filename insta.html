@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSTAGRAM</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'poppins', sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+  /* Navbar Styling */
+  .navbar {
+      background-color: #4a0d0d;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo {
+      position: absolute;
+      left: 20px;
+    }
+
+    .logo img {
+      width: 50px;
+      height: auto;
+    }
+
+    /* Menu Toggle Button */
+    .menu-toggle {
+      font-size: 30px;
+      color: #ffffff;
+      cursor: pointer;
+      display: none;
+      position: absolute;
+      right: 20px;
+    }
+
+    /* Nav List */
+    .nav-list {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .nav-list li {
+      padding: 10px 0;
+    }
+
+    .nav-list a {
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    /* Hover Effect */
+    .nav-list a:hover {
+      background-color: #a0261d;
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Click Effect */
+    .nav-list a:active {
+      background-color: #ffcc00;
+      color: #4a0d0d;
+      transform: scale(0.95);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Login Button */
+    .login-btn {
+      background-color: #4a0d0d;
+      color: #fff;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #a0261d;
+      transform: scale(1.05);
+    }
+
+    .login-btn:active {
+      background-color: #ffcc00;
+      color: #4a0d0d;
+      transform: scale(0.95);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-list {
+        display: none;
+        flex-direction: column;
+        position: fixed; /* Changed from absolute to fixed */
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #4a0d0d;
+        padding: 10px;
+        border-top: 2px solid #ffcc00;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000; /* Ensuring it's above footer */
+      }
+
+      .nav-list.active {
+        display: flex;
+      }
+
+      .nav-list li {
+        padding: 8px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .nav-list a {
+        font-size: 16px;
+        padding: 10px;
+      }
+
+      .login-btn {
+        width: 80%;
+        margin: 0 auto;
+        font-size: 16px;
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .logo img {
+        width: 40px;
+      }
+
+      .menu-toggle {
+        font-size: 28px;
+      }
+
+      .nav-list a {
+        font-size: 14px;
+        padding: 8px;
+      }
+
+      .login-btn {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo img {
+        width: 35px;
+      }
+
+      .menu-toggle {
+        font-size: 24px;
+      }
+
+      .nav-list a {
+        font-size: 14px;
+        padding: 6px;
+      }
+
+      .login-btn {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+        
+   
+    
+        .box_content {
+        padding: 40px;
+        text-align: center;
+        background: #f9f9f9;
+    }
+    .swiper {
+        width: 100%;
+        padding: 20px 0;
+    }
+    .swiper-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .product-card {
+        background: rgb(71, 3, 3);
+        border-radius: 12px;
+        padding: 20px;
+        width: 300px;
+        height: 300px;
+        color: white;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+    .product-card:hover {
+        transform: scale(1.05);
+    }
+    .product-card img {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+        margin-bottom: 10px;
+    }
+    .product-card h4 {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+    .product-card .price {
+        color: #d21f26;
+        font-weight: bold;
+    }
+    .product-card .reviews {
+        display: block;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+    #InstaContent {
+    width: 80%;
+    height: auto;
+    border: 2px solid rgb(71, 3, 3);
+    margin-bottom: 5%;
+    margin-left: 10%;
+    color: rgb(71, 3, 3);
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInBounce 1s ease-out forwards;
+    transition: all 0.3s ease-in-out;
+}
+
+#InstaContent:hover {
+    transform: scale(1.05);
+    text-shadow: 0px 0px 10px rgba(71, 3, 3, 0.7);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3);
+    font-size: 17px;
+    font-variant: small-caps;
+}
+
+@keyframes fadeInBounce {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    50% {
+        opacity: 0.5;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* <!-- CSS Styling for Social Icons --> */
+.social-media-container {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    .social-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        object-fit: cover;
+        transition: transform 0.2s ease;
+    }
+
+    .social-icon:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    @media (max-width: 768px) {
+        footer {
+            padding: 30px 5%;
+        }
+
+        h4 {
+            font-size: 15px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        input, button {
+            font-size: 13px;
+            padding: 8px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        footer {
+            padding: 20px 5%;
+        }
+
+        .social-media-container {
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .social-icon {
+            width: 22px;
+            height: 22px;
+        }
+
+        input, button {
+            font-size: 12px;
+            padding: 6px;
+        }
+
+        h4 {
+            font-size: 14px;
+        }
+    }
+    </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="logo">
+      <img src="logo.png" alt="Logo" />
+    </div>
+    <div class="menu-toggle" id="mobile-menu">
+      ☰
+    </div>
+    <ul class="nav-list">
+        <li><a href="C:\Users\famin\karthika\famproject\cnfirm\index.html" class="nav">Home</a></li>
+        <li><a href="C:\Users\famin\karthika\famproject\cnfirm\insta.html">Instagram</a></li>
+        <li><a href="C:\Users\famin\karthika\famproject\cnfirm\Twitter.html">Twitter</a></li>
+        <li><a href="C:\Users\famin\karthika\famproject\cnfirm\gmb.html">Google My Business</a></li>
+        <li><a href="C:\Users\famin\karthika\famproject\cnfirm\fb.html">Facebook</a></li>
+        <li><a href="#">Pro Hacks</a></li>
+        <li><a href="C:\Users\famin\karthika\famproject\cnfirm\contact.html">Contact</a></li>
+        <li><a href="C:\Users\famin\karthika\famproject\cnfirm\login.html" class="login-btn">Login</a></li>
+    </ul>
+  </nav>
+
+    <div class="para_content" style="margin-top: 200px;">
+        <div class="container my-5">
+            <h1 style="color: rgb(71, 3, 3); text-align: center;">Instagram Growth Services</h1>
+            <p style="text-align: center; max-width: 800px; margin: auto; font-size: 20px; line-height: 1.6;">
+                Looking to gain 1,000 Instagram followers in just 5-7 days? Whether you're an influencer, content creator, or business owner, GrowthX Instagram provides top-tier follower growth services. Establishing a strong Instagram presence is crucial for credibility and visibility. Our services ensure that your follower count increases, helping you enhance engagement and brand reputation within just 30-60 minutes.
+            </p>
+            <p style="text-align: center; max-width: 800px; margin: auto; font-size: 20px; line-height: 1.6;">
+                By opting for GrowthX's <strong>Instagram followers</strong>, likes, and views, you can give your account a solid start. Easily choose the best package that fits your needs and watch your Instagram profile grow rapidly.
+            </p>
+        </div>
+    </div>
+    <div class="box_content">
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <!-- Product 1 -->
+                <div class="swiper-slide">
+                    <div class="product-card">
+                        <img src="real-instagram-likes.png" alt="Instagram Page Followers">
+                        <h4>Real Instagram Likes</h4>
+                        <p>From <span class="price">Rs. 243.00</span> <del>Rs. 270.00</del></p>
+                        <span class="reviews">⭐ 109 reviews</span>
+                    </div>
+                </div>
+                <!-- Product 2 -->  
+                <div class="swiper-slide">
+                    <div class="product-card">
+                        <img src="auto-likes.png" alt="Instagram Post Likes">
+                        <h4>Instagram Auto Likes - 30 Days Pack</h4>
+                        <p>From <span class="price">Rs. 200.00</span> <del>Rs. 2,025.00</del></p>
+                        <span class="reviews">⭐ 7 reviews</span>
+                    </div>
+                </div>
+                <!-- Product 3 -->
+                <div class="swiper-slide">
+                    <div class="product-card">
+                        <img src="live-views.png" alt="Instagram Reels Views">
+                        <h4>Instagram Live Video Views</h4>
+                        <p>From <span class="price">Rs. 100.00</span> <del>Rs. 750.00</del></p>
+                        <span class="reviews">⭐ 5 reviews</span>
+                    </div>
+                </div>
+                <!-- Product 4 -->
+                <div class="swiper-slide">
+                    <div class="product-card">
+                        <img src="reels-shares.png" alt="Instagram Reels Shares">
+                        <h4>Instagram Reels Shares</h4>
+                        <p>From <span class="price">Rs. 255.00</span></p>
+                        <span class="reviews">⭐ 8 reviews</span>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <div id="InstaContent">
+            <p>The prices mentioned above are for 1,000 followers. For orders above 5,000 followers, you will receive a 10% discount. If your order exceeds 10,000 followers, you will get a 20% discount.</p>
+        </div>
+    </div>
+    
+    <footer style="
+    background-color: #000;
+    color: #fff;
+    padding: 40px 5%;
+    font-family: Montserrat;
+">
+    <div style="
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        text-align: center;
+    ">
+        <!-- Company Info -->
+        <div style="flex: 1; min-width: 240px;">
+            <img src="logo.png" alt="FamInfoMedia" style="width: 180px; margin-bottom: 15px;">
+            <p style="font-size: 14px; line-height: 1.6;">
+                Head Office<br>2/785 F2, Umapathi Nagar<br>Arumutham Palayam<br>Palladam<br>Tirupur - 641664
+            </p>
+            <div style="margin-top: 15px;">
+                <div class="social-media-container">
+                    <a href="https://www.facebook.com/people/Fam-infomedia/61568453833590/">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" class="social-icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/fam-infomedia-67b198348/">
+                        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" class="social-icon">
+                    </a>
+                    <a href="https://pin.it/eiGtp9mml">
+                        <img src="https://cdn-icons-png.flaticon.com/512/145/145808.png" alt="Pinterest" class="social-icon">
+                    </a>
+                    <a href="https://www.instagram.com/fam_info_media/">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="social-icon">
+                    </a>
+                    <a href="https://g.co/kgs/8GKbwNJ">
+                        <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" alt="Google" class="social-icon">
+                    </a>
+                    <a href="https://x.com/fam_infomedia">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="social-icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Company Links -->
+        <div style="flex: 1; min-width: 160px;">
+            <h4 style="font-size: 16px; margin-bottom: 12px;">COMPANY</h4>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                font-size: 14px;
+                line-height: 2;
+                text-align: center;
+            ">
+                <li><a href="#" style="color: #fff; text-decoration: none;">Home</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">About Us</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">Blogs</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">Reviews</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">Careers</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <!-- Solutions -->
+        <div style="flex: 1; min-width: 160px;">
+            <h4 style="font-size: 16px; margin-bottom: 12px;">SOLUTION</h4>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                font-size: 14px;
+                line-height: 2;
+                text-align: center;
+            ">
+                <li><a href="#" style="color: #fff; text-decoration: none;">Agency</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">Academy</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">Advisory</a></li>
+            </ul>
+        </div>
+
+        <!-- Newsletter -->
+        <div style="flex: 1; min-width: 240px;">
+            <h4 style="font-size: 16px; margin-bottom: 12px;">WANT SOME MARKETING GOODIES FOR FREE?</h4>
+            <form style="display: flex; justify-content: center; gap: 5px;">
+                <input type="email" placeholder="Enter Your Email" style="
+                    flex: 1;
+                    padding: 10px;
+                    border: none;
+                    border-radius: 6px 0 0 6px;
+                    font-size: 14px;
+                ">
+                <button type="submit" style="
+                    background-color: #D21F26;
+                    color: #fff;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 0 6px 6px 0;
+                    cursor: pointer;
+                    font-size: 14px;
+                ">Send Me</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Contact Info -->
+    <div style="
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 25px;
+        font-size: 14px;
+        gap: 15px;
+        text-align: center;
+    ">
+        <div><a href="mailto:info@faminfomedia.com" style="color: white;">📧 info@faminfomedia.com</a></div>
+        <div><a href="tel:+919655519922" style="color: white;">📞 +91 96555 19922</a></div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // Toggle menu for mobile
+  const mobileMenu = document.getElementById('mobile-menu');
+  const navList = document.querySelector('.nav-list');
+
+  mobileMenu.addEventListener('click', () => {
+    navList.classList.toggle('active');
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (event) => {
+    if (!mobileMenu.contains(event.target) && !navList.contains(event.target)) {
+      navList.classList.remove('active');
+    }
+  });
+</script>
+
+
+<script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            breakpoints: {
+                768: { slidesPerView: 2, spaceBetween: 20 },
+                1024: { slidesPerView: 3, spaceBetween: 30 }
+            }
+        });
+    </script>
+
+</body>
+</html>

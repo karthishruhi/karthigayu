@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        /* Video Background */
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .container {
+            width: 350px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: 0.3s;
+        }
+        .input-group {
+            margin: 15px 0;
+            position: relative;
+        }
+        .input-group input {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid grey;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        .input-group input:focus {
+            border-color: #a0261d;
+            box-shadow: 0 0 5px rgba(160, 38, 29, 0.5);
+        }
+        button {
+            background: #a0261d;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: grey;
+        }
+        #toggle-form a {
+            color: #a0261d;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        a{
+            text-decoration: none;
+            color: #fff;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <video autoplay loop muted class="video-bg">
+        <source src="https://cdn.pixabay.com/video/2015/11/25/1360-147055409_large.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <div class="container fade-in">
+        <div class="form-box">
+            <h2 id="form-title">Login</h2>
+            <form id="auth-form">
+                <div class="input-group">
+                    <input type="text" id="username" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <div class="input-group" id="confirm-password-group" style="display: none;">
+                    <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+                </div>
+                <div class="input-group" id="email-group" style="display: none;">
+                    <input type="email" id="email" placeholder="Email ID" required>
+                </div>
+                <button type="submit" id="submit-btn">Login</button>
+                <p id="toggle-form">Don't have an account? <a href="#">Sign Up</a></p>
+            </form>
+        </div>
+        <button type="submit"><a href="C:\Users\famin\karthika\famproject\cnfirm\index.html">Home</a></button>
+    </div>
+    <script>
+        const toggleForm = document.getElementById("toggle-form");
+        const formTitle = document.getElementById("form-title");
+        const submitBtn = document.getElementById("submit-btn");
+        const confirmPasswordGroup = document.getElementById("confirm-password-group");
+        const emailGroup = document.getElementById("email-group");
+
+        toggleForm.addEventListener("click", () => {
+            if (formTitle.innerText === "Login") {
+                formTitle.innerText = "Sign Up";
+                submitBtn.innerText = "Sign Up";
+                toggleForm.innerHTML = "Already have an account? <a href='#'>Login</a>";
+                confirmPasswordGroup.style.display = "block";
+                emailGroup.style.display = "block";
+            } else {
+                formTitle.innerText = "Login";
+                submitBtn.innerText = "Login";
+                toggleForm.innerHTML = "Don't have an account? <a href='#'>Sign Up</a>";
+                confirmPasswordGroup.style.display = "none";
+                emailGroup.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive Navigation Bar</title>
+  <style>
+    /* General Styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Navbar Styling */
+    .navbar {
+      background-color: #4a0d0d;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: center; /* Center content */
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .logo {
+      position: absolute;
+      left: 20px; /* Keep logo on left */
+    }
+
+    .logo img {
+      width: 50px;
+      height: auto;
+    }
+
+    /* Menu Toggle Button */
+    .menu-toggle {
+      font-size: 30px;
+      color: #ffffff;
+      cursor: pointer;
+      display: none;
+      position: absolute;
+      right: 20px;
+    }
+
+    /* Nav List */
+    .nav-list {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .nav-list li {
+      padding: 10px 0;
+    }
+
+    .nav-list a {
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    /* Hover Effect */
+    .nav-list a:hover {
+      background-color: #a0261d;
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Click Effect */
+    .nav-list a:active {
+      background-color: #ffcc00;
+      color: #4a0d0d;
+      transform: scale(0.95);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Login Button */
+    .login-btn {
+      background-color: #4a0d0d;
+      color: #fff;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #a0261d;
+      transform: scale(1.05);
+    }
+
+    .login-btn:active {
+      background-color: #ffcc00;
+      color: #4a0d0d;
+      transform: scale(0.95);
+    }
+  
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-list {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #4a0d0d;
+        padding: 10px;
+        border-top: 2px solid #ffcc00;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .nav-list.active {
+        display: flex;
+      }
+
+      .nav-list li {
+        padding: 8px;
+        width: 100%; /* Full width for better touch accuracy */
+        text-align: center;
+      }
+
+      .nav-list a {
+        font-size: 16px;
+        padding: 10px;
+      }
+
+      .login-btn {
+        width: 80%; /* Bigger touch area */
+        margin: 0 auto;
+        font-size: 16px;
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .logo img {
+        width: 40px;
+      }
+
+      .menu-toggle {
+        font-size: 28px;
+      }
+
+      .nav-list a {
+        font-size: 14px;
+        padding: 8px;
+      }
+
+      .login-btn {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo img {
+        width: 35px;
+      }
+
+      .menu-toggle {
+        font-size: 24px;
+      }
+
+      .nav-list a {
+        font-size: 14px;
+        padding: 6px;
+      }
+
+      .login-btn {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+    /*  Swiper Slider  */
+    .swiper.content {
+      width: 90%;
+      height: 400px;
+      margin: 20px auto;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: grey;
+      font-size: 24px;
+      font-weight: bold;
+      height: 100%;
+      padding: 20px;
+      color: white;
+    }
+
+    .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: rgb(71, 3, 3);
+    }
+
+    .swiper-pagination-bullet {
+      background-color: black;
+    }
+     /* 🏠 Container */
+     .content {
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    /* 🎨 Individual Content Boxes */
+    .box {
+      width: calc(25% - 20px); /* Adjusts for 4 in a row on large screens */
+      padding: 20px;
+      background: rgb(71, 3, 3);
+      border-radius: 10px;
+      color: white;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .box img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 15px;
+    }
+
+    /* 🚀 Hover Animation */
+    .box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    /* ✅ Responsive Design */
+    @media (max-width: 1024px) { /* Tablets */
+      .box {
+        width: calc(50% - 20px); /* 2 in a row */
+      }
+    }
+
+    @media (max-width: 768px) { /* Large Phones */
+      .box {
+        width: calc(50% - 15px); /* 2 in a row */
+      }
+    }
+
+    @media (max-width: 480px) { /* Small Phones */
+      .box {
+        width: 100%; /* 1 in a row */
+      }
+    }
+
+    /* Responsive Settings */
+    @media (max-width: 768px) { /* For Tablets and Mobile */
+      .swiper.content {
+        width: 95%;
+        height: 300px;
+      }
+
+      .swiper-slide {
+        font-size: 18px;
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 480px) { /* For Small Phones */
+      .swiper.content {
+        width: 100%;
+        height: 250px;
+      }
+
+      .swiper-slide {
+        font-size: 16px;
+      }
+    }
+
+    @media (min-width: 1024px) { /* For Laptops and Large Screens */
+      .swiper.content {
+        width: 80%;
+        height: 500px;
+      }
+
+      .swiper-slide {
+        font-size: 36px;
+      }
+    }
+     /* 📦 Container */
+     .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* 2 columns by default */
+      gap: 20px;
+      padding: 30px;
+      background-color: #f9f9f9;
+      border: 1px solid blue;
+      max-width: 1200px;
+      margin: 20px auto;
+    }
+
+    /* 🖼️ Review Box */
+    .review {
+      border: 1px solid red;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 250px; /* Fixed height */
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* 🌟 Hover Effect */
+    .review:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 📸 Image Styling */
+    .image1 {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    /* ✅ Responsive Styling */
+    @media (max-width: 1024px) { /* Tablets */
+      .container {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+      .review {
+        height: 200px;
+      }
+    }
+
+    @media (max-width: 768px) { /* Large Phones */
+      .container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      .review {
+        height: 180px;
+      }
+    }
+
+    @media (max-width: 480px) { /* Small Phones */
+      .container {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .review {
+        height: 150px;
+      }
+    }
+   
+    
+    /* 🚀 Services Container */
+    .services {
+      width: 90%;
+      max-width: 1400px;
+      margin: 30px auto;
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto; /* Horizontal Scroll */
+      gap: 15px;
+      padding-bottom: 10px;
+      scroll-snap-type: x mandatory; /* Smooth Snap Scrolling */
+      -webkit-overflow-scrolling: touch; /* For iOS Smooth Scroll */
+    }
+
+    /* 🧱 Service Box */
+    .service-box {
+      flex: 0 0 auto; /* Prevents shrinking */
+      min-width: 250px;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      scroll-snap-align: start;
+    }
+
+    /* 🔍 Hover Effect */
+    .service-box:hover {
+      transform: scale(1.1);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 🖼️ Image Styling */
+    .service-box img {
+      width: 60px;
+      margin-bottom: 10px;
+    }
+
+    /* ⭐ Rating */
+    .rating {
+      color: #f39c12;
+      font-size: 14px;
+    }
+
+    /* ✅ Responsive Styling */
+    @media (max-width: 1024px) { /* Tablets */
+      .services {
+        gap: 10px;
+      }
+      .service-box {
+        min-width: 220px;
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 768px) { /* Large Phones */
+      .services {
+        gap: 8px;
+      }
+      .service-box {
+        min-width: 200px;
+        padding: 12px;
+      }
+    }
+
+    @media (max-width: 480px) { /* Small Phones */
+      .services {
+        gap: 5px;
+      }
+      .service-box {
+        min-width: 180px;
+        padding: 10px;
+      }
+    }
+
+    /* 🎯 Custom Scrollbar (Optional) */
+    .services::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .services::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 10px;
+    }
+
+    .services::-webkit-scrollbar-track {
+      background-color: #f1f1f1;
+      border-radius: 10px;
+    }
+      /* 🚀 Container Styling */
+      .animated-section-class {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* 🧩 Animated Section */
+    .animated-section {
+      background-color: rgb(71, 3, 3);
+      color: white;
+      text-align: center;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      animation: fadeInUp 1s ease-in-out;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    /* 🎯 Heading */
+    #h22 {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      animation: bounceText 1.5s infinite alternate;
+    }
+
+    /* 📝 Paragraph */
+    #pp {
+      font-size: 16px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+      animation: fadeIn 1.5s ease-in;
+    }
+
+    /* 🚨 CTA Button */
+    .cta-button {
+      background-color: white;
+      color: rgb(71, 3, 3);
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    .cta-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.5);
+    }
+
+    /* 🎬 Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounceText {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(-5px);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* ✅ Responsive Styling */
+    @media (max-width: 768px) { /* Tablets & Large Phones */
+      .animated-section {
+        padding: 30px;
+      }
+      #h22 {
+        font-size: 24px;
+      }
+      #pp {
+        font-size: 14px;
+      }
+      .cta-button {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) { /* Small Phones */
+      .animated-section {
+        padding: 20px;
+      }
+      #h22 {
+        font-size: 20px;
+      }
+      #pp {
+        font-size: 13px;
+      }
+      .cta-button {
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+    }
+     /* 🚀 Section Styling */
+     .services-section {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .services-section h2 {
+      font-size: 2.5rem;
+      color: rgb(71, 3, 3);
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    /* 🔥 Container Styling */
+    .services-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    /* 🏆 Service Card */
+    .service-card {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 20px;
+      width: 180px;
+      height: 200px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    /* 📸 Icon Styling */
+    .service-card img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 12px;
+      z-index: 1;
+      transition: transform 0.3s ease;
+    }
+
+    /* 🔗 Link Styling */
+    .service-card a {
+      font-size: 1rem;
+      color: #000;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      z-index: 1;
+    }
+
+    /* ✅ Hover Effects */
+    .service-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .service-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .service-card:hover a {
+      color: #fff;
+    }
+
+    /* 🌈 Background Animation on Hover */
+    .service-card::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(
+        #ff7eb3, #ff758c, #ff6a6a, #ff8177, #ff7eb3
+      );
+      top: -50%;
+      left: -50%;
+      z-index: 0;
+      border-radius: 50%;
+      transition: transform 0.5s ease;
+    }
+
+    .service-card:hover::before {
+      transform: rotate(180deg);
+    }
+
+    /* 🟣 Instagram */
+    .instagram::before {
+      background: conic-gradient(
+        #f9ce34, #ee2a7b, #6228d7
+      );
+    }
+
+    /* 🔵 Twitter */
+    .twitter::before {
+      background: conic-gradient(
+        #1da1f2, #1b1f24, #657786
+      );
+    }
+
+    /* 🔵 Facebook */
+    .facebook::before {
+      background: conic-gradient(
+        #1877f2, #0e5a99
+      );
+    }
+
+    /* 🟠 Google My Business */
+    .google::before {
+      background: conic-gradient(
+        #4285f4, #34a853, #fbbc05, #ea4335
+      );
+    }
+
+    /* 🔹 LinkedIn */
+    .linkedin::before {
+      background: conic-gradient(
+        #0077b5, #004471
+      );
+    }
+
+    /* ✅ Responsive Fixes */
+    @media (max-width: 1024px) { /* Laptops and tablets */
+      .service-card {
+        width: 160px;
+        height: 180px;
+      }
+    }
+
+    @media (max-width: 768px) { /* Tablets */
+      .service-card {
+        width: 150px;
+        height: 170px;
+        padding: 15px;
+      }
+
+      .services-section h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) { /* Smartphones */
+      .service-card {
+        width: 140px;
+        height: 160px;
+        padding: 12px;
+      }
+
+      .service-card img {
+        width: 50px;
+        height: 50px;
+      }
+
+      .services-section h2 {
+        font-size: 1.5rem;
+      }
+
+      .service-card a {
+        font-size: 0.9rem;
+      }
+    }
+    /* <!-- CSS Styling for Social Icons --> */
+    .social-media-container {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    .social-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        object-fit: cover;
+        transition: transform 0.2s ease;
+    }
+
+    .social-icon:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    @media (max-width: 768px) {
+        footer {
+            padding: 30px 5%;
+        }
+
+        h4 {
+            font-size: 15px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        input, button {
+            font-size: 13px;
+            padding: 8px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        footer {
+            padding: 20px 5%;
+        }
+
+        .social-media-container {
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .social-icon {
+            width: 22px;
+            height: 22px;
+        }
+
+        input, button {
+            font-size: 12px;
+            padding: 6px;
+        }
+
+        h4 {
+            font-size: 14px;
+        }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar">
+  <div class="logo">
+    <img src="logo.png" alt="Logo" />
+  </div>
+  <div class="menu-toggle" id="mobile-menu">
+    ☰
+  </div>
+  <ul class="nav-list">
+    <li><a href="C:\Users\famin\karthika\famproject\cnfirm\index.html" class="nav">Home</a></li>
+    <li><a href="C:\Users\famin\karthika\famproject\cnfirm\insta.html">Instagram</a></li>
+    <li><a href="C:\Users\famin\karthika\famproject\cnfirm\Twitter.html">Twitter</a></li>
+    <li><a href="C:\Users\famin\karthika\famproject\cnfirm\gmb.html">Google My Business</a></li>
+    <li><a href="C:\Users\famin\karthika\famproject\cnfirm\fb.html">Facebook</a></li>
+    <li><a href="#">Pro Hacks</a></li>
+    <li><a href="C:\Users\famin\karthika\famproject\cnfirm\contact.html">Contact</a></li>
+    <li><a href="C:\Users\famin\karthika\famproject\cnfirm\login.html" class="login-btn">Login</a></li>
+  </ul>
+</nav>
+<!-- Swiper Slider -->
+<div class="swiper content">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="https://cdn.pixabay.com/photo/2015/10/29/14/38/web-1012467_1280.jpg" alt="Slide 1" />
+      </div>
+      <div class="swiper-slide">
+        <img src="https://img.freepik.com/premium-psd/digital-marketing-agency-social-media-instagram-web-banner-square-flyer-template_220443-670.jpg" alt="Slide 2" />
+      </div>
+      <div class="swiper-slide">Slide 3: Twitter Marketing</div>
+      <div class="swiper-slide">Slide 4: Google My Business</div>
+      <div class="swiper-slide">Slide 5: Pro Hacks</div>
+    </div>
+    
+    <!-- Navigation Arrows -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  
+    <!-- Pagination -->
+    <div class="swiper-pagination"></div>
+  </div>
+  <div class="content">
+    <div class="box">
+      <img src="https://cdn-icons-png.flaticon.com/128/1077/1077114.png" alt="Followers">
+      <h3>Get More Followers</h3>
+      <p>Growthx helps you get more Instagram followers fast and securely.</p>
+    </div>
+    <div class="box">
+      <img src="https://cdn-icons-png.flaticon.com/128/747/747376.png" alt="Secure">
+      <h3>Safe & Secure Delivery</h3>
+      <p>See your Instagram growth take off in just 5-7 days—worth the wait!</p>
+    </div>
+    <div class="box">
+      <img src="https://cdn-icons-png.flaticon.com/128/565/565547.png" alt="Password">
+      <h3>No Password Needed</h3>
+      <p>We’ll only ever ask you for your username.</p>
+    </div>
+    <div class="box">
+      <img src="https://cdn-icons-png.flaticon.com/128/709/709612.png" alt="Support">
+      <h3>Reliable & Trusted</h3>
+      <p>We reply to any queries within 24 hours.</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="review">
+      <img src="https://via.placeholder.com/300x200" alt="Sample Image" class="image1">
+    </div>
+    <div class="review">
+      <img src="https://via.placeholder.com/300x200" alt="Sample Image" class="image1">
+    </div>
+  </div>
+  <div class="services">
+    <div class="service-box">
+      <img src="https://cdn-icons-png.flaticon.com/128/733/733547.png" alt="Facebook Services">
+      <h3>Facebook Page Likes</h3>
+      <p>From Rs. 450.00</p>
+      <p class="rating">★★★★★ 320 reviews</p>
+    </div>
+    <div class="service-box">
+      <img src="https://cdn-icons-png.flaticon.com/128/733/733579.png" alt="Twitter Services">
+      <h3>Twitter Followers</h3>
+      <p>From Rs. 500.00</p>
+      <p class="rating">★★★★☆ 250 reviews</p>
+    </div>
+    <div class="service-box">
+      <img src="https://cdn-icons-png.flaticon.com/128/733/733558.png" alt="Instagram Services">
+      <h3>Instagram Standard Followers</h3>
+      <p>From Rs. 530.00</p>
+      <p class="rating">★★★★★ 424 reviews</p>
+    </div>
+    <div class="service-box">
+      <img src="https://cdn-icons-png.flaticon.com/128/732/732245.png" alt="Google My Business Services">
+      <h3>Google My Business Reviews</h3>
+      <p>From Rs. 700.00</p>
+      <p class="rating">★★★★★ 180 reviews</p>
+    </div>
+  </div><div class="animated-section-class">
+    <div class="animated-section">
+      <h2 id="h22">Over 50,000 Satisfied Customers 😊</h2>
+      <p id="pp">Join the thousands who trust GrowthX to boost their Instagram presence. Get genuine followers and grow your account effortlessly!</p>
+      <button class="cta-button">Buy Followers Now</button>
+    </div>
+  </div>
+
+  <!-- ✅ Section Content -->
+<div class="services-section">
+    <h2> <strong> Explore Services</strong></h2>
+    <div class="services-container">
+    
+      <!-- 🌈 Instagram -->
+      <div class="service-card instagram">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram">
+        <a href="#">Instagram Growth Services</a>
+      </div>
+  
+      <!-- 🔵 Twitter (X) -->
+      <div class="service-card twitter">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968830.png" alt="Twitter">
+        <a href="#">Twitter Growth Services</a>
+      </div>
+  
+      <!-- 🔵 Facebook -->
+      <div class="service-card facebook">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" alt="Facebook">
+        <a href="#">Facebook Growth Services</a>
+      </div>
+  
+      <!-- 🟠 Google My Business -->
+      <div class="service-card google">
+        <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" alt="Google My Business">
+        <a href="#">Google My Business Services</a>
+      </div>
+  
+      <!-- 🔹 LinkedIn -->
+      <div class="service-card linkedin">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384014.png" alt="LinkedIn">
+        <a href="#">LinkedIn Growth Services</a>
+      </div>
+    
+    </div>
+  </div>
+  
+<footer style="
+    background-color: #000;
+    color: #fff;
+    padding: 40px 5%;
+    font-family: Montserrat;
+">
+    <div style="
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        text-align: center;
+    ">
+        <!-- Company Info -->
+        <div style="flex: 1; min-width: 240px;">
+            <img src="logo.png" alt="FamInfoMedia" style="width: 180px; margin-bottom: 15px;">
+            <p style="font-size: 14px; line-height: 1.6;">
+                Head Office<br>2/785 F2, Umapathi Nagar<br>Arumutham Palayam<br>Palladam<br>Tirupur - 641664
+            </p>
+            <div style="margin-top: 15px;">
+                <div class="social-media-container">
+                    <a href="https://www.facebook.com/people/Fam-infomedia/61568453833590/">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" class="social-icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/fam-infomedia-67b198348/">
+                        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" class="social-icon">
+                    </a>
+                    <a href="https://pin.it/eiGtp9mml">
+                        <img src="https://cdn-icons-png.flaticon.com/512/145/145808.png" alt="Pinterest" class="social-icon">
+                    </a>
+                    <a href="https://www.instagram.com/fam_info_media/">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="social-icon">
+                    </a>
+                    <a href="https://g.co/kgs/8GKbwNJ">
+                        <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" alt="Google" class="social-icon">
+                    </a>
+                    <a href="https://x.com/fam_infomedia">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" class="social-icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Company Links -->
+        <div style="flex: 1; min-width: 160px;">
+            <h4 style="font-size: 16px; margin-bottom: 12px;">COMPANY</h4>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                font-size: 14px;
+                line-height: 2;
+                text-align: center;
+            ">
+                <li><a href="#" style="color: #fff; text-decoration: none;">Home</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">About Us</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">Blogs</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">Reviews</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">Careers</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <!-- Solutions -->
+        <div style="flex: 1; min-width: 160px;">
+            <h4 style="font-size: 16px; margin-bottom: 12px;">SOLUTION</h4>
+            <ul style="
+                list-style-type: none;
+                padding: 0;
+                font-size: 14px;
+                line-height: 2;
+                text-align: center;
+            ">
+                <li><a href="#" style="color: #fff; text-decoration: none;">Agency</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">Academy</a></li>
+                <li><a href="#" style="color: #fff; text-decoration: none;">Advisory</a></li>
+            </ul>
+        </div>
+
+        <!-- Newsletter -->
+        <div style="flex: 1; min-width: 240px;">
+            <h4 style="font-size: 16px; margin-bottom: 12px;">WANT SOME MARKETING GOODIES FOR FREE?</h4>
+            <form style="display: flex; justify-content: center; gap: 5px;">
+                <input type="email" placeholder="Enter Your Email" style="
+                    flex: 1;
+                    padding: 10px;
+                    border: none;
+                    border-radius: 6px 0 0 6px;
+                    font-size: 14px;
+                ">
+                <button type="submit" style="
+                    background-color: #D21F26;
+                    color: #fff;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 0 6px 6px 0;
+                    cursor: pointer;
+                    font-size: 14px;
+                ">Send Me</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Contact Info -->
+    <div style="
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 25px;
+        font-size: 14px;
+        gap: 15px;
+        text-align: center;
+    ">
+        <div><a href="mailto:info@faminfomedia.com" style="color: white;">📧 info@faminfomedia.com</a></div>
+        <div><a href="tel:+919655519922" style="color: white;">📞 +91 96555 19922</a></div>
+    </div>
+</footer>
+  
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+  // Toggle menu for mobile
+  const mobileMenu = document.getElementById('mobile-menu');
+  const navList = document.querySelector('.nav-list');
+
+  mobileMenu.addEventListener('click', () => {
+    navList.classList.toggle('active');
+  });
+  const swiper = new Swiper('.swiper', {
+    loop: true, // Looping enabled
+    autoplay: {
+      delay: 3000, // 3 seconds auto slide
+      disableOnInteraction: false,
+    },
+    slidesPerView: 1,
+    spaceBetween: 10,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    breakpoints: {
+      640: {
+        slidesPerView: 1,
+        spaceBetween: 10
+      },
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 15
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 20
+      }
+    }
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (event) => {
+    if (!mobileMenu.contains(event.target) && !navList.contains(event.target)) {
+      navList.classList.remove('active');
+    }
+  });
+</script>
+
+</body>
+</html>
